@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod +x . --exclude-file
+find . -type d -exec chmod 755 {} +
