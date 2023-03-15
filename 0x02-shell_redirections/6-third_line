@@ -1,0 +1,2 @@
+#!/bin/bash
+head -3 hhhh | tail +3
