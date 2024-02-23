@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# a bash script that displays:
+# The content of the current directory
+# in a list format
+# where the only part of the name after the first dash is display
+
+for each in *
+do
+	name=${each#*-}
+	echo "$name"
+done
