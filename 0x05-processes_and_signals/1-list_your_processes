@@ -4,5 +4,4 @@
 # Display in a user-oriented format
 # Show process hierarchy
 
-name="$(ps aux)"
-echo "$name"
+ps -auxf
