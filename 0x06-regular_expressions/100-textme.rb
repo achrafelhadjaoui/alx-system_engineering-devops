@@ -4,4 +4,8 @@
 # The receiver phone number or name (including country code if present)
 # The flags that were used
 
-puts ARGV[0].scan(/((?<=from:)(?<=to:)(?<=flags:))(.)(?=\])/).join
+from = ARGV[0].scan(/(?<=from:)(.*?)(?=\])/)
+to = ARGV[0].scan(/(?<=to:)(.*?)(?=\])/)
+flag = ARGV[0].scan(/(?<=flags:)(.*?)(?=\])/)
+
+puts [from, to, flag].join(',')
