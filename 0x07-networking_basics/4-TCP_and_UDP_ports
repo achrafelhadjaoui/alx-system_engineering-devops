@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# a Bash script that displays listening prts:
+# That only shows listening sockets
+# That shows the PID and name of the program to which each socket belongs
+
+netstat -lp
