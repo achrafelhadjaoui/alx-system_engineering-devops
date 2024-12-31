@@ -1,10 +1,39 @@
 #!/usr/bin/env bash
-# install nginx and adjust default homepage
+
+# Install NGINX web server
+echo "Updating package lists..."
 sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw 'Nginx HTTP'
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
-sudo nginx -t
+# Check if NGINX is already installed
+if ! nginx -v &>/dev/null; then
+	    echo "Installing NGINX..."
+	        sudo apt-get -y install nginx
+	else
+		    echo "NGINX is already installed."
+fi
 
-sudo service nginx reload
+# Modify the default page
+DEFAULT_PAGE="/var/www/html/index.html"
+if [ -f /var/www/html/index.nginx-debian.html ]; then
+	    DEFAULT_PAGE="/var/www/html/index.nginx-debian.html"
+fi
+
+echo "Updating the default page..."
+sudo sh -c "echo 'Hello World!' > $DEFAULT_PAGE"
+
+# Start or reload NGINX
+echo "Starting or reloading NGINX..."
+if pgrep -x nginx &>/dev/null; then
+	    sudo nginx -s reload
+    else
+	        sudo service nginx start
+fi
+
+# Test the setup
+echo "Testing the setup..."
+if curl -s http://localhost/ | grep -q "Hello World!"; then
+	    echo "NGINX is successfully serving the page!"
+    else
+	        echo "Something went wrong."
+		    exit 1
+fi
